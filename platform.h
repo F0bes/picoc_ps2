@@ -13,7 +13,6 @@
  * #define  WIN32  (predefined on MSVC)
  */
 #define PS2_HOST
-#undef UNIX_HOST
 
 #define LARGE_INT_POWER_OF_TEN 1000000000   /* the largest power of ten which fits in an int on this architecture */
 #if defined(__hppa__) || defined(__sparc__)
@@ -59,7 +58,7 @@
 #  endif
 # endif
 # ifdef PS2_HOST
-#  define BUILTIN_MINI_STDLIB
+#  undef BUILTIN_MINI_STDLIB
 # endif
 extern jmp_buf ExitBuf;
 

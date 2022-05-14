@@ -28,7 +28,7 @@ int main(int argc, char **argv)
    // }
     
     PicocInitialise(&pc, StackSize);
-     PicocIncludeAllSystemHeaders(&pc);
+    PicocIncludeAllSystemHeaders(&pc);
     PicocPlatformScanFile(&pc, "host:tests/00_assignment.c");
 
    

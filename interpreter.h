@@ -650,8 +650,10 @@ extern const char StdboolDefs[];
 void StdboolSetupFunc(Picoc *pc);
 
 /* unistd.c */
+#ifdef PICOC_UNISTD_LIBRARY
 extern const char UnistdDefs[];
 extern struct LibraryFunction UnistdFunctions[];
 void UnistdSetupFunc(Picoc *pc);
+#endif
 
 #endif /* INTERPRETER_H */

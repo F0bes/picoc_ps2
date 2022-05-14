@@ -1,3 +1,4 @@
+#if 0
 /* stdlib.h library for large systems - small embedded systems use clibrary.c instead */
 #include <stdio.h>
 #include <unistd.h>
@@ -503,3 +504,4 @@ void UnistdSetupFunc(Picoc *pc)
 
 #endif /* !BUILTIN_MINI_STDLIB */
 
+#endif

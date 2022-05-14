@@ -76,7 +76,9 @@ void StdGmtime_r(struct ParseState *Parser, struct Value *ReturnValue, struct Va
 
 void StdTimegm(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs)
 {
-    ReturnValue->Val->Integer = timegm(Param[0]->Val->Pointer);
+    //ReturnValue->Val->Integer = timegm(Param[0]->Val->Pointer);
+    printf("timegm not implemented\n");
+    ReturnValue->Val->Integer = -1;
 }
 #endif
 

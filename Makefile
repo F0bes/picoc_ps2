@@ -3,7 +3,7 @@ INCS = -I$(PS2SDK)/ee/include -I$(PS2SDK)/common/include
 CFLAGS=-Wall -pedantic -g -DVER=\"2.1\" -D_EE $(INCS)
 LIBS=-lm -L$(PS2SDK)/ee/lib -ldebug -lkernel
 
-TARGET	= picoc
+TARGET	= picoc.elf
 SRCS	= picoc.c table.c lex.c parse.c expression.c heap.c type.c \
 	variable.c clibrary.c platform.c include.c debug.c \
 	platform/platform_ps2.c platform/library_ps2.c \
