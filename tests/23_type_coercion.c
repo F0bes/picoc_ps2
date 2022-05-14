@@ -2,17 +2,17 @@
 
 void charfunc(char a)
 {
-    printf("char: %c\n", a);
+	printf("char: %c\n", a);
 }
 
 void intfunc(int a)
 {
-    printf("int: %d\n", a);
+	printf("int: %d\n", a);
 }
 
 void floatfunc(float a)
 {
-    printf("float: %f\n", a);
+	printf("float: %f\n", a);
 }
 
 charfunc('a');

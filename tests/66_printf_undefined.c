@@ -2,10 +2,10 @@
 
 void fred()
 {
-    printf("test\n");
+	printf("test\n");
 }
 
-void main() 
+void main()
 {
-    fred();
+	fred();
 }

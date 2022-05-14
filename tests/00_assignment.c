@@ -1,13 +1,18 @@
+#include "picoc_ps2.h"
 
-printf("Hi there from interpreted C on the PS2!!\n");
-int a;
-a = 42;
-printf("%d\n", a);
+printf("Hi there, running PICOC_VERSION %s.\n",PICOC_VERSION);
 
-int b = 64;
-printf("%d\n", b);
+printf("This should be visible on both the console and the screen.\n");
 
-int c = 12, d = 34;
-printf("%d, %d\n", c, d);
 
-timegm(NULL);
+toggle_prints(STDIO_OUT_SCREEN);
+
+printf("This should only be visible on the screen.\n");
+
+toggle_prints(STDIO_OUT_CONSOLE);
+
+printf("This should only be visible in the console.\n");
+
+toggle_prints(STDIO_OUT_CONSOLE | STDIO_OUT_SCREEN);
+
+printf("This should be visible on both the console and screen again!\n");

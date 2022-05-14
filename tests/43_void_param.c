@@ -2,7 +2,7 @@
 
 void fred(void)
 {
-    printf("yo\n");
+	printf("yo\n");
 }
 
 fred();

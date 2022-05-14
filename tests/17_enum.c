@@ -2,14 +2,14 @@
 
 enum fred
 {
-    a,
-    b,
-    c,
-    d,
-    e = 54,
-    f = 73,
-    g,
-    h
+	a,
+	b,
+	c,
+	d,
+	e = 54,
+	f = 73,
+	g,
+	h
 };
 
 enum fred frod;

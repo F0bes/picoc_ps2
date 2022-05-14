@@ -2,8 +2,8 @@
 
 struct fred
 {
-    int boris;
-    int natasha;
+	int boris;
+	int natasha;
 };
 
 struct fred bloggs;

@@ -2,8 +2,8 @@
 
 int a;
 int b;
-int *d;
-int *e;
+int* d;
+int* e;
 d = &a;
 e = &b;
 a = 12;

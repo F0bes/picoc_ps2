@@ -23,9 +23,9 @@ printf("%d\n", a ? b+c : c+d);
 printf("%d\n", a || b ? b+c : c+d); */
 printf("%d\n", e || e && f);
 printf("%d\n", e || f && f);
-printf("%d\n", e && e || f);
-printf("%d\n", e && f || f);
-printf("%d\n", a && f | f);
+printf("%d\n", e&& e || f);
+printf("%d\n", e&& f || f);
+printf("%d\n", a&& f | f);
 printf("%d\n", a | b ^ c & d);
 printf("%d, %d\n", a == a, a == b);
 printf("%d, %d\n", a != a, a != b);

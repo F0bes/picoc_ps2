@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 int a;
-int *b;
+int* b;
 int c;
 
 a = 42;
@@ -10,9 +10,9 @@ printf("a = %d\n", *b);
 
 struct ziggy
 {
-    int a;
-    int b;
-    int c;
+	int a;
+	int b;
+	int c;
 } bolshevic;
 
 bolshevic.a = 12;
@@ -23,7 +23,7 @@ printf("bolshevic.a = %d\n", bolshevic.a);
 printf("bolshevic.b = %d\n", bolshevic.b);
 printf("bolshevic.c = %d\n", bolshevic.c);
 
-struct ziggy *tsar = &bolshevic;
+struct ziggy* tsar = &bolshevic;
 
 printf("tsar->a = %d\n", tsar->a);
 printf("tsar->b = %d\n", tsar->b);

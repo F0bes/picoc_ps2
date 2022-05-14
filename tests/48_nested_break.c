@@ -6,19 +6,19 @@ char b;
 a = 0;
 while (a < 2)
 {
-    printf("%d", a++);
+	printf("%d", a++);
 	break;
 
-    b = 'A';
+	b = 'A';
 	while (b < 'C')
 	{
 		printf("%c", b++);
 	}
-    printf("e");
+	printf("e");
 }
 printf("\n");
 
 int main()
 {
-    return 0;
+	return 0;
 }

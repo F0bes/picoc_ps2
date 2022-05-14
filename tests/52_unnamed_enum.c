@@ -1,6 +1,11 @@
 #include <stdio.h>
 
-enum fred { a, b, c };
+enum fred
+{
+	a,
+	b,
+	c
+};
 
 printf("a=%d\n", a);
 printf("b=%d\n", b);
@@ -8,8 +13,18 @@ printf("c=%d\n", c);
 
 enum fred d;
 
-typedef enum { e, f, g } h;
-typedef enum { i, j, k } m;
+typedef enum
+{
+	e,
+	f,
+	g
+} h;
+typedef enum
+{
+	i,
+	j,
+	k
+} m;
 
 printf("e=%d\n", e);
 printf("f=%d\n", f);

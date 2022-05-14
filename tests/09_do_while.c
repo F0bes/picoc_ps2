@@ -10,10 +10,10 @@ t = 0;
 
 do
 {
-    printf("%d\n", a);
-    t = a;
-    a = t + p;
-    p = t;
+	printf("%d\n", a);
+	t = a;
+	a = t + p;
+	p = t;
 } while (a < 100);
 
 
