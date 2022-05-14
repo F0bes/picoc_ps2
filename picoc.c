@@ -33,6 +33,7 @@ int main(int argc, char** argv)
 
 
 	PicocCleanup(&pc);
+	PlatformExit(&pc, 0);
 	return pc.PicocExitValue;
 	if (strcmp(argv[ParamCount], "-s") == 0 || strcmp(argv[ParamCount], "-m") == 0)
 	{

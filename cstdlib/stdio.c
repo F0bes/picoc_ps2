@@ -561,6 +561,7 @@ void StdioGetchar(struct ParseState* Parser, struct Value* ReturnValue, struct V
 	ReturnValue->Val->Integer = getchar();
 }
 
+#ifndef PS2_HOST
 void StdioPrintf(struct ParseState* Parser, struct Value* ReturnValue, struct Value** Param, int NumArgs)
 {
 	struct StdVararg PrintfArgs;
@@ -569,6 +570,7 @@ void StdioPrintf(struct ParseState* Parser, struct Value* ReturnValue, struct Va
 	PrintfArgs.NumArgs = NumArgs - 1;
 	ReturnValue->Val->Integer = StdioBasePrintf(Parser, stdout, NULL, 0, Param[0]->Val->Pointer, &PrintfArgs);
 }
+#endif
 
 void StdioVprintf(struct ParseState* Parser, struct Value* ReturnValue, struct Value** Param, int NumArgs)
 {
@@ -701,7 +703,9 @@ struct LibraryFunction StdioFunctions[] =
 		{StdioPuts, "int puts(char *);"},
 		{StdioGets, "char *gets(char *);"},
 		{StdioGetchar, "int getchar();"},
+		#ifndef PS2_HOST
 		{StdioPrintf, "int printf(char *, ...);"},
+		#endif
 		{StdioFprintf, "int fprintf(FILE *, char *, ...);"},
 		{StdioSprintf, "int sprintf(char *, char *, ...);"},
 		{StdioSnprintf, "int snprintf(char *, int, char *, ...);"},
