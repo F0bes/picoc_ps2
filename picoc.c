@@ -6,7 +6,7 @@
 
 /* platform-dependent code for running programs is in this file */
 
-#if defined(UNIX_HOST) || defined(WIN32)
+#if defined(UNIX_HOST) || defined(WIN32) || defined(PS2_HOST)
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -19,17 +19,21 @@ int main(int argc, char **argv)
     int DontRunMain = FALSE;
     int StackSize = getenv("STACKSIZE") ? atoi(getenv("STACKSIZE")) : PICOC_STACK_SIZE;
     Picoc pc;
-    
-    if (argc < 2)
-    {
-        printf("Format: picoc <csource1.c>... [- <arg1>...]    : run a program (calls main() to start it)\n"
-               "        picoc -s <csource1.c>... [- <arg1>...] : script mode - runs the program without calling main()\n"
-               "        picoc -i                               : interactive mode\n");
-        exit(1);
-    }
+    //if (argc < 2)
+    //{
+   //     printf("Format: picoc <csource1.c>... [- <arg1>...]    : run a program (calls main() to start it)\n"
+   //            "        picoc -s <csource1.c>... [- <arg1>...] : script mode - runs the program without calling main()\n"
+   //            "        picoc -i                               : interactive mode\n");
+   //     PlatformExit(&pc, 0);
+   // }
     
     PicocInitialise(&pc, StackSize);
-    
+     PicocIncludeAllSystemHeaders(&pc);
+    PicocPlatformScanFile(&pc, "host:tests/00_assignment.c");
+
+   
+    PicocCleanup(&pc);
+    return pc.PicocExitValue;
     if (strcmp(argv[ParamCount], "-s") == 0 || strcmp(argv[ParamCount], "-m") == 0)
     {
         DontRunMain = TRUE;

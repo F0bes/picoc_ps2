@@ -19,7 +19,7 @@
 #include "interpreter.h"
 
 
-#if defined(UNIX_HOST) || defined(WIN32)
+#if defined(UNIX_HOST) || defined(WIN32) || defined(PS2_HOST)
 #include <setjmp.h>
 
 /* this has to be a macro, otherwise errors will occur due to the stack being corrupt */

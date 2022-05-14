@@ -21,7 +21,7 @@ void PicocInitialise(Picoc *pc, int StackSize)
 #endif
     LibraryInit(pc);
 #ifdef BUILTIN_MINI_STDLIB
-    LibraryAdd(pc, &GlobalTable, "c library", &CLibrary[0]);
+    LibraryAdd(pc, &pc->GlobalTable, "c library", &CLibrary[0]);
     CLibraryInit(pc);
 #endif
     PlatformLibraryInit(pc);
@@ -45,7 +45,7 @@ void PicocCleanup(Picoc *pc)
 }
 
 /* platform-dependent code for running programs */
-#if defined(UNIX_HOST) || defined(WIN32)
+#if defined(UNIX_HOST) || defined(WIN32) || defined(PS2_HOST)
 
 #define CALL_MAIN_NO_ARGS_RETURN_VOID "main();"
 #define CALL_MAIN_WITH_ARGS_RETURN_VOID "main(__argc,__argv);"

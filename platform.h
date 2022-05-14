@@ -5,12 +5,15 @@
 /* configurable options */
 /* select your host type (or do it in the Makefile):
  * #define  UNIX_HOST
+ * #define  PS2_HOST
  * #define  FLYINGFOX_HOST
  * #define  SURVEYOR_HOST
  * #define  SRV1_UNIX_HOST
  * #define  UMON_HOST
  * #define  WIN32  (predefined on MSVC)
  */
+#define PS2_HOST
+#undef UNIX_HOST
 
 #define LARGE_INT_POWER_OF_TEN 1000000000   /* the largest power of ten which fits in an int on this architecture */
 #if defined(__hppa__) || defined(__sparc__)
@@ -33,7 +36,7 @@
 #define INTERACTIVE_PROMPT_LINE "     > "
 
 /* host platform includes */
-#ifdef UNIX_HOST
+#if defined(UNIX_HOST) || defined(PS2_HOST)
 # define USE_MALLOC_STACK                   /* stack is allocated using malloc() */
 # define USE_MALLOC_HEAP                    /* heap is allocated using malloc() */
 # include <stdio.h>
@@ -55,7 +58,9 @@
 #   define BIG_ENDIAN
 #  endif
 # endif
-
+# ifdef PS2_HOST
+#  define BUILTIN_MINI_STDLIB
+# endif
 extern jmp_buf ExitBuf;
 
 #else

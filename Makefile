@@ -1,11 +1,12 @@
-CC=gcc
-CFLAGS=-Wall -pedantic -g -DUNIX_HOST -DVER=\"2.1\"
-LIBS=-lm -lreadline
+CC=mips64r5900el-ps2-elf-gcc
+INCS = -I$(PS2SDK)/ee/include -I$(PS2SDK)/common/include
+CFLAGS=-Wall -pedantic -g -DVER=\"2.1\" -D_EE $(INCS)
+LIBS=-lm -L$(PS2SDK)/ee/lib -ldebug -lkernel
 
 TARGET	= picoc
 SRCS	= picoc.c table.c lex.c parse.c expression.c heap.c type.c \
 	variable.c clibrary.c platform.c include.c debug.c \
-	platform/platform_unix.c platform/library_unix.c \
+	platform/platform_ps2.c platform/library_ps2.c \
 	cstdlib/stdio.c cstdlib/math.c cstdlib/string.c cstdlib/stdlib.c \
 	cstdlib/time.c cstdlib/errno.c cstdlib/ctype.c cstdlib/stdbool.c \
 	cstdlib/unistd.c
@@ -43,8 +44,8 @@ clibrary.o: clibrary.c picoc.h interpreter.h platform.h
 platform.o: platform.c picoc.h interpreter.h platform.h
 include.o: include.c picoc.h interpreter.h platform.h
 debug.o: debug.c interpreter.h platform.h
-platform/platform_unix.o: platform/platform_unix.c picoc.h interpreter.h platform.h
-platform/library_unix.o: platform/library_unix.c interpreter.h platform.h
+platform/platform_ps2.o: platform/platform_ps2.c picoc.h interpreter.h platform.h
+platform/library_ps2.o: platform/library_ps2.c interpreter.h platform.h
 cstdlib/stdio.o: cstdlib/stdio.c interpreter.h platform.h
 cstdlib/math.o: cstdlib/math.c interpreter.h platform.h
 cstdlib/string.o: cstdlib/string.c interpreter.h platform.h

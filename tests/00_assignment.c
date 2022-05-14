@@ -1,5 +1,5 @@
-#include <stdio.h>
 
+printf("Hi there from interpreted C on the PS2!!\n");
 int a;
 a = 42;
 printf("%d\n", a);

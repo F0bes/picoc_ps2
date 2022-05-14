@@ -10,7 +10,7 @@ static const int __ENDIAN_CHECK__ = 1;
 static int BigEndian;
 static int LittleEndian;
 
-
+Picoc *g_picoc;
 /* global initialisation for libraries */
 void LibraryInit(Picoc *pc)
 {
@@ -25,6 +25,7 @@ void LibraryInit(Picoc *pc)
 
     VariableDefinePlatformVar(pc, NULL, "BIG_ENDIAN", &pc->IntType, (union AnyValue *)&BigEndian, FALSE);
     VariableDefinePlatformVar(pc, NULL, "LITTLE_ENDIAN", &pc->IntType, (union AnyValue *)&LittleEndian, FALSE);
+    g_picoc = pc;
 }
 
 /* add a library */
@@ -95,16 +96,16 @@ static int ZeroValue = 0;
 void BasicIOInit(Picoc *pc)
 {
     pc->CStdOutBase.Putch = &PlatformPutc;
-    pc->CStdOut = &CStdOutBase;
+    pc->CStdOut = &g_picoc->CStdOutBase;
 }
 
 /* initialise the C library */
 void CLibraryInit(Picoc *pc)
 {
     /* define some constants */
-    VariableDefinePlatformVar(pc, NULL, "NULL", &IntType, (union AnyValue *)&ZeroValue, FALSE);
-    VariableDefinePlatformVar(pc, NULL, "TRUE", &IntType, (union AnyValue *)&TRUEValue, FALSE);
-    VariableDefinePlatformVar(pc, NULL, "FALSE", &IntType, (union AnyValue *)&ZeroValue, FALSE);
+    VariableDefinePlatformVar(pc, NULL, "NULL", &g_picoc->IntType, (union AnyValue *)&ZeroValue, FALSE);
+    VariableDefinePlatformVar(pc, NULL, "TRUE", &g_picoc->IntType, (union AnyValue *)&TRUEValue, FALSE);
+    VariableDefinePlatformVar(pc, NULL, "FALSE", &g_picoc->IntType, (union AnyValue *)&ZeroValue, FALSE);
 }
 
 /* stream for writing into strings */
@@ -157,12 +158,12 @@ void PrintUnsigned(unsigned long Num, unsigned int Base, int FieldWidth, int Zer
     }
     
     if (FieldWidth > 0 && !LeftJustify)
-        PrintRepeatedChar(ZeroPad ? '0' : ' ', FieldWidth - (sizeof(Result) - 1 - ResPos), Stream);
+        PrintRepeatedChar(g_picoc,ZeroPad ? '0' : ' ', FieldWidth - (sizeof(Result) - 1 - ResPos), Stream);
         
     PrintStr(&Result[ResPos], Stream);
 
     if (FieldWidth > 0 && LeftJustify)
-        PrintRepeatedChar(' ', FieldWidth - (sizeof(Result) - 1 - ResPos), Stream);
+        PrintRepeatedChar(g_picoc,' ', FieldWidth - (sizeof(Result) - 1 - ResPos), Stream);
 }
 
 /* print an integer to a stream without using printf/sprintf */
@@ -262,10 +263,10 @@ void GenericPrintf(struct ParseState *Parser, struct Value *ReturnValue, struct 
             /* now check the format type */
             switch (*FPos)
             {
-                case 's': FormatType = CharPtrType; break;
-                case 'd': case 'u': case 'x': case 'b': case 'c': FormatType = &IntType; break;
+                case 's': FormatType = g_picoc->CharPtrType; break;
+                case 'd': case 'u': case 'x': case 'b': case 'c': FormatType = &g_picoc->IntType; break;
 #ifndef NO_FP
-                case 'f': FormatType = &FPType; break;
+                case 'f': FormatType = &g_picoc->FPType; break;
 #endif
                 case '%': PrintCh('%', Stream); FormatType = NULL; break;
                 case '\0': FPos--; FormatType = NULL; break;
@@ -281,8 +282,8 @@ void GenericPrintf(struct ParseState *Parser, struct Value *ReturnValue, struct 
                 {
                     NextArg = (struct Value *)((char *)NextArg + MEM_ALIGN(sizeof(struct Value) + TypeStackSizeValue(NextArg)));
                     if (NextArg->Typ != FormatType && 
-                            !((FormatType == &IntType || *FPos == 'f') && IS_NUMERIC_COERCIBLE(NextArg)) &&
-                            !(FormatType == CharPtrType && (NextArg->Typ->Base == TypePointer || 
+                            !((FormatType == &g_picoc->IntType || *FPos == 'f') && IS_NUMERIC_COERCIBLE(NextArg)) &&
+                            !(FormatType == g_picoc->CharPtrType && (NextArg->Typ->Base == TypePointer || 
                                                              (NextArg->Typ->Base == TypeArray && NextArg->Typ->FromType->Base == TypeChar) ) ) )
                         PrintStr("XXX", Stream);   /* bad type for format */
                     else
@@ -366,7 +367,7 @@ void LibGetc(struct ParseState *Parser, struct Value *ReturnValue, struct Value 
 
 void LibExit(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs)
 {
-    PlatformExit(Param[0]->Val->Integer);
+    PlatformExit(g_picoc, Param[0]->Val->Integer);
 }
 
 #ifdef PICOC_LIBRARY

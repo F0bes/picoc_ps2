@@ -1,8 +1,8 @@
 /* stdio.h library for large systems - small embedded systems use clibrary.c instead */
-#ifndef BUILTIN_MINI_STDLIB
-
 #include <errno.h>
 #include "../interpreter.h"
+
+#ifndef BUILTIN_MINI_STDLIB
 
 #define MAX_FORMAT 80
 #define MAX_SCANF_ARGS 10
@@ -716,22 +716,22 @@ void StdioSetupFunc(Picoc *pc)
 }
 
 /* portability-related I/O calls */
-void PrintCh(char OutCh, FILE *Stream)
+void PrintCh(char OutCh, IOFILE *Stream)
 {
     putc(OutCh, Stream);
 }
 
-void PrintSimpleInt(long Num, FILE *Stream)
+void PrintSimpleInt(long Num, IOFILE *Stream)
 {
     fprintf(Stream, "%ld", Num);
 }
 
-void PrintStr(const char *Str, FILE *Stream)
+void PrintStr(const char *Str, IOFILE *Stream)
 {
     fputs(Str, Stream);
 }
 
-void PrintFP(double Num, FILE *Stream)
+void PrintFP(double Num, IOFILE *Stream)
 {
     fprintf(Stream, "%f", Num);
 }
