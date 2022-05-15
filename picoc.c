@@ -19,22 +19,16 @@ int main(int argc, char** argv)
 	int DontRunMain = FALSE;
 	int StackSize = getenv("STACKSIZE") ? atoi(getenv("STACKSIZE")) : PICOC_STACK_SIZE;
 	Picoc pc;
-	//if (argc < 2)
-	//{
-	//     printf("Format: picoc <csource1.c>... [- <arg1>...]    : run a program (calls main() to start it)\n"
-	//            "        picoc -s <csource1.c>... [- <arg1>...] : script mode - runs the program without calling main()\n"
-	//            "        picoc -i                               : interactive mode\n");
-	//     PlatformExit(&pc, 0);
-	// }
+	if (argc < 2)
+	{
+	     printf("Format: picoc <csource1.c>... [- <arg1>...]    : run a program (calls main() to start it)\n"
+	            "        picoc -s <csource1.c>... [- <arg1>...] : script mode - runs the program without calling main()\n"
+	            "        picoc -i                               : interactive mode\n");
+	    PlatformExit(&pc, 0);
+	}
 
 	PicocInitialise(&pc, StackSize);
-	PicocIncludeAllSystemHeaders(&pc);
-	PicocPlatformScanFile(&pc, "host:tests/00_assignment.c");
 
-
-	PicocCleanup(&pc);
-	PlatformExit(&pc, 0);
-	return pc.PicocExitValue;
 	if (strcmp(argv[ParamCount], "-s") == 0 || strcmp(argv[ParamCount], "-m") == 0)
 	{
 		DontRunMain = TRUE;
@@ -63,6 +57,7 @@ int main(int argc, char** argv)
 	}
 
 	PicocCleanup(&pc);
+	PlatformExit(&pc, 0);
 	return pc.PicocExitValue;
 }
 #else

@@ -1,7 +1,7 @@
 CC=mips64r5900el-ps2-elf-gcc
 INCS = -I$(PS2SDK)/ee/include -I$(PS2SDK)/common/include
 CFLAGS=-Wall -pedantic -g -DVER=\"2.1\" -D_EE $(INCS)
-LIBS=-lm -L$(PS2SDK)/ee/lib -ldebug -lkernel
+LIBS=-lm -L$(PS2SDK)/ee/lib -ldebug -lkernel -lkbd
 
 TARGET	= picoc.elf
 SRCS	= picoc.c table.c lex.c parse.c expression.c heap.c type.c \
