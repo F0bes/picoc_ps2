@@ -1,6 +1,5 @@
 #include "../picoc.h"
 #include "../interpreter.h"
-#include "ps2lib/stdio_ps2.h"
 
 #include <kernel.h>
 #include <libkbd.h>
@@ -85,7 +84,6 @@ void ps2putchar(char c)
 /* get a line of interactive input */
 char* PlatformGetLine(char* Buf, int MaxLen, const char* Prompt)
 {
-
 	if (Prompt != NULL)
 		ps2printf("%s", Prompt);
 

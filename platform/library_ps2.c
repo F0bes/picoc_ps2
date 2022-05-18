@@ -13,7 +13,7 @@ void PS2VsyncWait()
 void PS2SetupFunc()
 {
 	*(u32*)0x10003000 = 1; // RESET GIF
-	init_scr();
+	//init_scr();
 	PS2VsyncWait();
 }
 
@@ -41,4 +41,5 @@ void PlatformLibraryInit(Picoc* pc)
 {
 	IncludeRegister(pc, "picoc_unix.h", &PS2SetupFunc, &PS2Functions[0], NULL);
 	PS2STDIOLibraryInit(pc);
+	PS2DRAWLibraryInit(pc);
 }
